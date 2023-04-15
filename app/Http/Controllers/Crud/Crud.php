@@ -24,21 +24,27 @@ class Crud extends Controller
             'image' => 'required|mimes:png,jpg,jpeg,gif|max:2048'
         ]);
 
-
         $image = $request->file('image');
         //$image->getClientOriginalName();
         $new_name = time()."-".uniqid().".".$image->getClientOriginalExtension();
         $uploadPath = public_path('uploads');
-        $image->move($uploadPath,$new_name);
-        // $datas = [
-        //     'name'=>$request->name,
-        //     'email'=>$request->email,
-        //     'password'=>$request->password,
-        //     'image'=>
-        // ]
 
-        return redirect()->back()->with('msg','Success!');
-        
+        $datas = [
+            'name'=>$request->name,
+            'email'=>$request->email,
+            'password'=>$request->password,
+            //'image'=> $new_name
+        ];
+
+        $insert = DB::table('users')->insert($datas);
+        if($insert){
+            $image->move($uploadPath,$new_name);
+
+            return redirect()->back()->with('msg','Success!');
+        }else{
+            return redirect()->back()->with('msg','Error!');
+        }
+         
     }
     public function edit($id){
 
@@ -47,6 +53,11 @@ class Crud extends Controller
 
     }
     public function delete($id){
-
+        $delete = DB::table('users')->where('id',$id)->delete();
+        if ($delete) {
+            return redirect()->back()->with('msg','Success!');
+        }else{
+            return redirect()->back()->with('msg','Error!');
+        }
     }
 }
