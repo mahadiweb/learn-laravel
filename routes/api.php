@@ -17,3 +17,13 @@ use Illuminate\Support\Facades\Route;
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
+
+Route::group(['middleware'=>'App\Http\Middleware\api'],function(){ //simple middleware api auth check
+    Route::get('app',function(){
+        return response()->json([
+            'name'=>'Mahdi',
+            'email'=>'mahdi@gmail.com'
+        ]);
+    });
+});
+

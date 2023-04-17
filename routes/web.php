@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use Illuminate\Http\Request;
 
 /*
 |--------------------------------------------------------------------------
@@ -21,8 +22,16 @@ Route::get("/examples",function(){
 Route::get("/welcome",function(){
     return view("welcome");
 });
-Route::get("/about/{f}",function(){
-    return view("about");
+Route::get("/about/{f}",function($f){ // get url parameter
+    return $f;
+});
+
+Route::get("/search",function(Request $request){  //get query url parameter example: search?tag=laravel&data=game
+    if ($request->tag) {
+        return e($request->tag);
+    }else{
+        abort(404); //return 404 error
+    }
 });
 
 //With controller
@@ -32,11 +41,12 @@ Route::group(['prefix'=>'admin'],function(){
 
 
 //__CRUD__//
-Route::group(['prefix'=>'crud'], function(){
-    Route::get('/','App\Http\Controllers\Crud\Crud@index')->name('read');
-    Route::get('/create', 'App\Http\Controllers\Crud\Crud@create')->name('create');
-    Route::post('/store', 'App\Http\Controllers\Crud\Crud@store')->name('store');
-    Route::get('/edit/{id}', 'App\Http\Controllers\Crud\Crud@edit')->name('edit');
-    Route::post('/update/{id}', 'App\Http\Controllers\Crud\Crud@update')->name('update');
-    Route::get('/delete/{id}', 'App\Http\Controllers\Crud\Crud@delete')->name('delete');
+Route::group(['prefix'=>'crud','namespace'=>'App\Http\Controllers\Crud'], function(){
+    Route::get('/','Crud@index')->name('read');
+    Route::get('/create', 'Crud@create')->name('create');
+    Route::post('/store', 'Crud@store')->name('store');
+    Route::get('/edit/{id}', 'Crud@edit')->name('edit')->where('id', '[0-9]+'); //filter id with regular expression
+    Route::PUT('/update/{id}', 'Crud@update')->name('update')->where('id', '[0-9]+'); //filter id with regular expression
+    Route::delete('/delete/{id}', 'Crud@delete')->name('delete')->where('id', '[0-9]+'); //filter id with regular expression
+    Route::get('/search','Crud@search')->name('search');
 });

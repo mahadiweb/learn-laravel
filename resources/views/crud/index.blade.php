@@ -4,6 +4,7 @@
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
 
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css">
@@ -11,7 +12,7 @@
     <title>Laravel CRUD</title>
   </head>
   <body>
-    <h1 class="text-center">Laravel CRUD</h1>
+    <h1 class="text-center">Laravel CRUD <a href="{{ url('/crud') }}">M</a></h1>
 
     <div class="row">
     	<div class="col-md-3"></div>
@@ -34,7 +35,7 @@
 				      <th scope="row">{{$no++}}</th>
 				      <td>{{$data->name}}</td>
 				      <td>{{$data->email}}</td>
-				      <td><a href="#" class="btn btn-primary">Edit</a></td>
+				      <td><a href="{{ route('edit',$data->id) }}" class="btn btn-primary">Edit</a>&nbsp<a href="{{ route('delete',$data->id) }}" class="btn btn-danger">Delete</a></td>
 				    </tr>
 				    @endforeach
 				  </tbody>

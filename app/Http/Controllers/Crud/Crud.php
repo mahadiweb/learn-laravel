@@ -47,10 +47,15 @@ class Crud extends Controller
          
     }
     public function edit($id){
-
+        $editdata = DB::table('users')->find($id);
+        return view('crud.edit',['editdata'=>$editdata]);
     }
     public function update(Request $request, $id){
-
+        $validated = $request->validate([
+            'name' => 'required|max:30',
+            'email' => 'required|email',
+            'image' => 'mimes:png,jpg,jpeg,gif|max:2048'
+        ]);
     }
     public function delete($id){
         $delete = DB::table('users')->where('id',$id)->delete();
@@ -58,6 +63,16 @@ class Crud extends Controller
             return redirect()->back()->with('msg','Success!');
         }else{
             return redirect()->back()->with('msg','Error!');
+        }
+    }
+    public function search(Request $request){
+        if ($request->tag) {
+            $keyword = e($request->tag);
+            $data = DB::table('users')->where('name','like','%'.$keyword.'%')->get();
+            //dd($data);
+            return response()->json($data);
+        }else{
+            abort(404); //return 404 error
         }
     }
 }
