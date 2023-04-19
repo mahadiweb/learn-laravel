@@ -13,9 +13,11 @@ class Crud extends Controller
         $read = DB::table('users')->get();
         return view('crud.index',['datas'=>$read]);
     }
+    
     public function create(){
         return view('crud.create');
     }
+
     public function store(Request $request){
         $validated = $request->validate([
             'name' => 'required|max:30',
@@ -46,10 +48,12 @@ class Crud extends Controller
         }
          
     }
+
     public function edit($id){
         $editdata = DB::table('users')->find($id);
         return view('crud.edit',['editdata'=>$editdata]);
     }
+
     public function update(Request $request, $id){
         $validated = $request->validate([
             'name' => 'required|max:30',
@@ -57,6 +61,7 @@ class Crud extends Controller
             'image' => 'mimes:png,jpg,jpeg,gif|max:2048'
         ]);
     }
+
     public function delete($id){
         $delete = DB::table('users')->where('id',$id)->delete();
         if ($delete) {
@@ -65,6 +70,7 @@ class Crud extends Controller
             return redirect()->back()->with('msg','Error!');
         }
     }
+
     public function search(Request $request){
         if ($request->tag) {
             $keyword = e($request->tag);
