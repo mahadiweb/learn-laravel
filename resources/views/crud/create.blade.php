@@ -7,6 +7,7 @@
 
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
 
     <title>Laravel CRUD</title>
   </head>
@@ -52,7 +53,7 @@
 					  <div class="form-group">
 						  <label>Image</label>
 						  <div class="custom-file">
-							  <input type="file" class="custom-file-input @error('name') is-invalid @enderror" id="customFile" value="{{ old('image') }}" name="image">
+							  <input type="file" class="custom-file-input @error('name') is-invalid @enderror" id="customFile" value="{{ old('image') }}" name="image" multiple="">
 							  <label class="custom-file-label" for="customFile">Choose file</label>
 							  @error('image')
 								    <strong class="text-danger">{{ $message }}</strong>
@@ -70,8 +71,22 @@
 
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
   </body>
+  <script type="text/javascript">
+  	  @if(Session::has('msg'))
+		  toastr.options =
+			  {
+			  	"closeButton" : true,
+			  	"progressBar" : true,
+			  	'showDuration': '1000',
+			  	"showMethod": "slideDown",
+			  };
+		  		toastr.error("{{ Session::get('msg') }}");
+		  		toastr.success("{{ Session::get('msg') }}");
+		  @endif
+  </script>
 </html>

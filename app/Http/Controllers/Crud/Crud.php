@@ -6,12 +6,16 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use DB;
 use Session;
+use auth;
 
 class Crud extends Controller
 {
     public function index(){
         $read = DB::table('users')->get();
         return view('crud.index',['datas'=>$read]);
+
+        //$permission = ['admin.home','admin.post','admin.create'];
+        //return serialize($permission);
     }
     
     public function create(){
@@ -81,4 +85,5 @@ class Crud extends Controller
             abort(404); //return 404 error
         }
     }
+
 }

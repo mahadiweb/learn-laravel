@@ -42,11 +42,15 @@ Route::group(['prefix'=>'admin'],function(){
 
 //__CRUD__//
 Route::group(['prefix'=>'crud','namespace'=>'App\Http\Controllers\Crud'], function(){
-    Route::get('/','Crud@index')->name('read');
+    Route::get('/','Crud@index')->name('read')->middleware('App\Http\Middleware\Role:admin.home');
     Route::get('/create', 'Crud@create')->name('create');
     Route::post('/store', 'Crud@store')->name('store');
     Route::get('/edit/{id}', 'Crud@edit')->name('edit')->where('id', '[0-9]+'); //filter id with regular expression
     Route::PUT('/update/{id}', 'Crud@update')->name('update')->where('id', '[0-9]+'); //filter id with regular expression
-    Route::delete('/delete/{id}', 'Crud@delete')->name('delete')->where('id', '[0-9]+'); //filter id with regular expression
+    Route::get('/delete/{id}', 'Crud@delete')->name('delete')->where('id', '[0-9]+'); //filter id with regular expression
     Route::get('/search','Crud@search')->name('search');
 });
+
+Auth::routes();
+
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
