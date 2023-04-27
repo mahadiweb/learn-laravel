@@ -24,10 +24,12 @@ class Role
                 if (in_array($role, $permission)) {
                     return $next($request);
                 }else{
-                    return abort(401);
+                    //return abort(401); //For api
+                    return redirect()->back();
                 };
             }else{
-                return abort(401);
+                //return abort(401); //For api
+                return redirect()->back();
             }
 
         }else{

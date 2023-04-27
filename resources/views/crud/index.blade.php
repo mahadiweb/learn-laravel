@@ -12,6 +12,31 @@
     <title>Laravel CRUD</title>
   </head>
   <body>
+
+
+        <!-- Image and text -->
+				<nav class="navbar navbar-expand navbar-light bg-light">
+					<div class="container">
+					  <a class="navbar-brand" href="{{ url('/') }}">
+					    <img src="https://getbootstrap.com/docs/4.0/assets/brand/bootstrap-solid.svg" width="30" height="30" class="d-inline-block align-top" alt="">
+					    CRUD
+					  </a>
+
+					  <ul class="navbar-nav float-right">
+					  		<li class="nav-item dropdown">
+					        <a class="nav-link dropdown-toggle" href="javascript:void(0)" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+					          {{ Auth::user()->name }}
+					        </a>
+					        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+					          <a class="dropdown-item" href="{{ route('logout') }}">Logout</a>
+					        </div>
+					      </li>
+					  </ul>
+
+				  </div>
+				</nav>
+
+
     <h1 class="text-center">Laravel CRUD <a href="{{ url('/crud') }}">M</a></h1>
 
     <div class="row">
