@@ -17,19 +17,19 @@ class Role
      */
     public function handle(Request $request, Closure $next, $role)
     {
-        if (Auth::guard('web')->check()) {
+        if (Auth::check()) { // For guard: Auth::guard('web')->check()
 
             $permission = unserialize(auth::user()->role);
             if (!empty($permission)) {
                 if (in_array($role, $permission)) {
                     return $next($request);
                 }else{
-                    //return abort(401); //For api
-                    return redirect()->back();
+                    return abort(401); //For api
+                    //return redirect()->back();
                 };
             }else{
-                //return abort(401); //For api
-                return redirect()->back();
+                return abort(401); //For api
+                //return redirect()->back();
             }
 
         }else{

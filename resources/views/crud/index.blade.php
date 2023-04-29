@@ -35,10 +35,11 @@
 
 				  </div>
 				</nav>
-
+{{--roleHas("admin.home")--}}
 
     <h1 class="text-center">Laravel CRUD <a href="{{ url('/crud') }}">M</a></h1>
 
+@if(roleHas("admin.home"))
     <div class="row">
     	<div class="col-md-3"></div>
     	<div class="card col-md-6">
@@ -68,7 +69,7 @@
     		</div>
     	</div>
     </div>
-
+@endif
 
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->

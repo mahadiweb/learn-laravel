@@ -13,6 +13,9 @@ use Illuminate\Http\Request;
 | contains the "web" middleware group. Now create something great!
 |
 */
+
+
+//__Testing Route__//
 Route::get("/",function(){
     return view("index");
 });
@@ -34,10 +37,10 @@ Route::get("/search",function(Request $request){  //get query url parameter exam
     }
 });
 
-//With controller
-Route::group(['prefix'=>'admin'],function(){
+Route::group(['prefix'=>'admin'],function(){      //With controller
     Route::get("/ll/{ids?}",'App\Http\Controllers\TestController@indexs')->name('index');
 });
+
 
 
 //__CRUD__//
@@ -51,6 +54,8 @@ Route::group(['prefix'=>'crud','namespace'=>'App\Http\Controllers\Crud'], functi
     Route::get('/search','Crud@search')->name('search');
 });
 
-Auth::routes();
 
+
+//__Auth__//
+Auth::routes();
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
