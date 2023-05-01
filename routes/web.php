@@ -59,3 +59,8 @@ Route::group(['prefix'=>'crud','namespace'=>'App\Http\Controllers\Crud'], functi
 //__Auth__//
 Auth::routes();
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
+//__Custom auth guard__//
+Route::get('/admin/auth','App\Http\Controllers\Crud\Crud@customAuth')->name('customauth');
+Route::get('/admin', 'App\Http\Controllers\Crud\Crud@admin')->name('admin.index');
+Route::get('/admin/logout', 'App\Http\Controllers\Crud\Crud@customLogout')->name('admin.logout');

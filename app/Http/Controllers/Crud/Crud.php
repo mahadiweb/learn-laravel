@@ -6,7 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use DB;
 use Session;
-use auth;
+use Auth;
 
 class Crud extends Controller
 {
@@ -86,4 +86,31 @@ class Crud extends Controller
         }
     }
 
+
+
+    /////__Custom auth with guard test__///
+    public function customAuth(){
+        $credentials  = ['email'=>'email@gmail.com','password'=>'12345678'];
+        $res = Auth::guard('admin')->attempt($credentials);
+        //dd($res);
+        if ($res) {
+            return redirect()->intended('/admin');
+        }else{
+            return "No";
+        }
+    }
+
+    public function admin(){
+        if (Auth::guard('admin')->check()) {
+            return "Yes";        
+        }else{
+            return "No";
+        }
+    }
+
+    public function customLogout(){
+        Auth::guard('admin')->logout();
+
+        return redirect('/login');
+    }
 }
