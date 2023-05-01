@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 use Firebase\JWT\JWT;
 use Firebase\JWT\Key;
 
-class api
+class MyApiMiddleware
 {
     /**
      * Handle an incoming request.
